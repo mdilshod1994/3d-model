@@ -12,14 +12,14 @@ class App {
     this.meshes = []
     this.grid = { rows: 5, cols: 12 }
     this.width = window.innerWidth
-    this.height = experience.value.offsetHeight
+    this.height = window.innerHeight
     this.mouse3D = new THREE.Vector2()
     this.raycaster = new THREE.Raycaster()
   }
   createScene() {
     this.scene = new THREE.Scene()
     this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
-    this.renderer.setSize(window.innerWidth, experience.value.offsetHeight)
+    this.renderer.setSize(window.innerWidth, window.innerHeight)
     this.renderer.setPixelRatio(window.devicePixelRatio)
     this.renderer.shadowMap.enabled = true
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
@@ -30,7 +30,7 @@ class App {
   createCamera() {
     this.camera = new THREE.PerspectiveCamera(
       37,
-      window.innerWidth / experience.value.offsetHeight,
+      window.innerWidth / window.innerHeight,
       1,
     )
     this.camera.position.set(0, 65, 0)
@@ -45,8 +45,8 @@ class App {
     const directionalLight = new THREE.DirectionalLight(0xffffff, 3) // Lowered intensity
     directionalLight.position.set(50, 100, 50)
     directionalLight.castShadow = true
-    directionalLight.shadow.mapSize.width = experience.value.offsetWidth
-    directionalLight.shadow.mapSize.height = experience.value.offsetHeight
+    directionalLight.shadow.mapSize.width = window.innerWidth
+    directionalLight.shadow.mapSize.height = window.innerHeight
 
     this.scene.add(directionalLight)
   }
@@ -156,7 +156,7 @@ class App {
   }
   onResize() {
     this.width = window.innerWidth
-    this.height = experience.value.offsetHeight
+    this.height = window.innerHeight
     this.camera.aspect = this.width / this.height
     this.camera.updateProjectionMatrix()
     this.renderer.setSize(this.width, this.height)
